@@ -108,6 +108,11 @@ function getBundleId(context, configXml) {
   var etree = elementTree.parse(configXml);
   return etree.getroot().get('id');
 }
+function getBundleId(configXml) {
+  var elementTree = require('elementtree');
+  var etree = elementTree.parse(configXml);
+  return etree.getroot().get('id');
+}
 
 function parsePbxProject(context, pbxProjectPath) {
   var xcode = require('xcode');
@@ -161,7 +166,7 @@ function getPreferences(context, configXml, projectName) {
     value: projectName
   }, {
     key: '__BUNDLE_IDENTIFIER__',
-    value: bundleIdentifier + BUNDLE_SUFFIX
+      value: getBundleId(configXml) + BUNDLE_SUFFIX
   } ,{
       key: '__GROUP_IDENTIFIER__',
       value: group
